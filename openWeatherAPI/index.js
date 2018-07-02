@@ -1,7 +1,7 @@
 
 //--------------------
-var getWeather = require("./getapi");
+var getWeather = require("./getWeatherInfo_sync");
 
 //--------------------
-var aaa = getWeather.getWeatherInfo();
-colsole.log(aaa);
+var weatherInfo = getWeather.getWeatherInfo();
+console.log(weatherInfo);
