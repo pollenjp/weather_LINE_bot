@@ -1,0 +1,56 @@
+
+
+{
+  // 北海道・東北
+  "Hokkaidou": "北海道",
+  "Aomori": "青森",
+  "Iwate": "岩手",
+  "Miyagi": "宮城",
+  "Akita": "秋田",
+  "Yamagata": "山形",
+  "Fukushima": "福島",
+  // 関東
+  "Tokyo": "東京",
+  "Chiba": "千葉",
+  "Kanagawa": "神奈川",
+  "Saitama": "埼玉",
+  "Tochigi": "栃木",
+  "Gunma": "群馬",
+  "Ibaraki": "茨城",
+  // 中部
+  "Shizuoka": "静岡",
+  "Gifu": "岐阜",
+  "Aichi": "愛知",
+  "Niigata": "新潟",
+  "Toyama": "富山",
+  "Ishikawa": "石川",
+  "Fukui": "福井",
+  // 近畿
+  "Hyogo": "兵庫",
+  "Kyoto": "京都",
+  "Osaka": "大阪",
+  "Wakayama": "和歌山",
+  "Shiga": "滋賀",
+  "Mie": "三重",
+  "Nara": "奈良",
+  // 中国
+  "Yamaguchi": "山口",
+  "Hiroshima": "広島",
+  "Okayama": "岡山",
+  "Shimane": "島根",
+  "Tottori": "鳥取",
+  // 四国
+  "Kagawa": "香川",
+  "Tokushima": "徳島",
+  "Ehime": "愛媛",
+  "Kochi": "高知",
+  // 九州・沖縄
+  "Kagoshima": "鹿児島",
+  "Kumamoto": "熊本",
+  "Miyazaki": "宮崎",
+  "Oita": "大分",
+  "Fukuoka": "福岡",
+  "Saga": "佐賀",
+  "Nagasaki": "長崎",
+  "Okinawa": "沖縄"
+}
