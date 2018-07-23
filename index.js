@@ -141,9 +141,7 @@ async function replyToUnfollowEvent(event, req, res)
       console.log("Error (replyToUnfollowEvent) : \n", err);
     });
   return;
-}
-
-
+} 
 //--------------------------------------------------------------------------------
 //  replyToMessageEvent
 //--------------------------------------------------------------------------------
@@ -171,6 +169,25 @@ async function replyToPostbackEvent(event, req, res)
   //--------------------------------------------------------------------------------
   switch (postback_data_obj.question){
 
+    case "pushMessage":
+      switch (postback_data_obj.action){
+        case "yes":
+          let sqlText = `UPDATE userinfo SET pushmessage = 1  WHERE userid = $1`;
+          let sqlValues = [ event.source.userId ];
+          // savePlace (0: no, 1: want to save, 2: saved)
+          let savePlace = await db.any( sqlText, sqlValues)
+            .catch( (err) => {
+              console.log("Error : ", err);
+            });
+          let reply = {
+            type: "text",
+            text: "毎朝６時に通知されます。解除したい場合は一度ブロックしてからブロック解除をおねがいします。"
+          };
+          let result = client.replyMessage(event.replyToken, reply);
+          res.json(result);
+          break;
+      }
+      break;
     case "needUmbrella":
       //------------------------------------------------------------
       //  needUmbrella
@@ -288,9 +305,9 @@ function askQuestion()
       "thumbnailImageUrl":
         "https://raw.githubusercontent.com/pollenjp/learning_linebot/feature/line-sdk/image/umbrella01.gif",
       "imageAspectRatio": "rectangle",
-      "imageSize": "cover",
+      "imageSize": "contain",
       "imageBackgroundColor": "#FFFFFF",
-      "title": "できること",
+      "title": "何をしますか",
       "text": "以下の項目から選択してください。",
       "actions": [
         {
@@ -302,6 +319,11 @@ function askQuestion()
           "type": "postback",
           "label": "地域の設定・変更",
           "data": "question=setPlace&action=yes"
+        },
+        {
+          "type": "postback",
+          "label": "朝６時にpush通知",
+          "data": "question=pushMessage&action=yes"
         }
       ]
     }
@@ -357,10 +379,10 @@ async function askRegions(event, req, res)
       "altText": "This is a buttons template",
       "template": {
         "type": "buttons",
-        "thumbnailImageUrl": "https://example.com/bot/images/image.jpg",
-        "imageAspectRatio": "rectangle",
-        "imageSize": "cover",
-        "imageBackgroundColor": "#FFFFFF",
+        //"thumbnailImageUrl": "https://example.com/bot/images/image.jpg",
+        //"imageAspectRatio": "rectangle",
+        //"imageSize": "cover",
+        //"imageBackgroundColor": "#FFFFFF",
         "title": "どこの地方ですか？",
         "text": "選択してください。",
         "actions": [
@@ -432,10 +454,10 @@ async function selectHokkaidouTouhoku(event, req, res)
       "altText": "This is a buttons template",
       "template": {
         "type": "buttons",
-        "thumbnailImageUrl": "https://example.com/bot/images/image.jpg",
-        "imageAspectRatio": "rectangle",
-        "imageSize": "cover",
-        "imageBackgroundColor": "#FFFFFF",
+        //"thumbnailImageUrl": "https://example.com/bot/images/image.jpg",
+        //"imageAspectRatio": "rectangle",
+        //"imageSize": "cover",
+        //"imageBackgroundColor": "#FFFFFF",
         "title": "どこの都道府県ですか？",
         "text": "選択してください。",
         "actions": [
@@ -505,10 +527,10 @@ async function selectKantou(event, req, res)
       "altText": "This is a buttons template",
       "template": {
         "type": "buttons",
-        "thumbnailImageUrl": "https://example.com/bot/images/image.jpg",
-        "imageAspectRatio": "rectangle",
-        "imageSize": "cover",
-        "imageBackgroundColor": "#FFFFFF",
+        //"thumbnailImageUrl": "https://example.com/bot/images/image.jpg",
+        //"imageAspectRatio": "rectangle",
+        //"imageSize": "cover",
+        //"imageBackgroundColor": "#FFFFFF",
         "title": "どこの都道府県ですか？",
         "text": "選択してください。",
         "actions": [
@@ -579,10 +601,10 @@ async function selectChubu(event, req, res)
       "altText": "This is a buttons template",
       "template": {
         "type": "buttons",
-        "thumbnailImageUrl": "https://example.com/bot/images/image.jpg",
-        "imageAspectRatio": "rectangle",
-        "imageSize": "cover",
-        "imageBackgroundColor": "#FFFFFF",
+        //"thumbnailImageUrl": "https://example.com/bot/images/image.jpg",
+        //"imageAspectRatio": "rectangle",
+        //"imageSize": "cover",
+        //"imageBackgroundColor": "#FFFFFF",
         "title": "どこの都道府県ですか？",
         "text": "選択肢１",
         "actions": [
@@ -674,10 +696,10 @@ async function selectKinki(event, req, res)
       "altText": "This is a buttons template", 
       "template": {
         "type": "buttons", 
-        "thumbnailImageUrl": "https://example.com/bot/images/image.jpg", 
-        "imageAspectRatio": "rectangle", 
-        "imageSize": "cover", 
-        "imageBackgroundColor": "#FFFFFF", 
+        //"thumbnailImageUrl": "https://example.com/bot/images/image.jpg", 
+        //"imageAspectRatio": "rectangle", 
+        //"imageSize": "cover", 
+        //"imageBackgroundColor": "#FFFFFF", 
         "title": "どこの都道府県ですか？", 
         "text": "選択してください。", 
         "actions": [ 
@@ -748,10 +770,10 @@ async function selectChugoku(event, req, res)
       "altText": "This is a buttons template",
       "template": {
         "type": "buttons",
-        "thumbnailImageUrl": "https://example.com/bot/images/image.jpg",
-        "imageAspectRatio": "rectangle",
-        "imageSize": "cover",
-        "imageBackgroundColor": "#FFFFFF",
+        //"thumbnailImageUrl": "https://example.com/bot/images/image.jpg",
+        //"imageAspectRatio": "rectangle",
+        //"imageSize": "cover",
+        //"imageBackgroundColor": "#FFFFFF",
         "title": "どこの都道府県ですか？",
         "text": "選択してください。",
         "actions": [
@@ -811,10 +833,10 @@ async function selectShikoku(event, req, res)
     "altText": "This is a buttons template",
     "template": {
       "type": "buttons",
-      "thumbnailImageUrl": "https://example.com/bot/images/image.jpg",
-      "imageAspectRatio": "rectangle",
-      "imageSize": "cover",
-      "imageBackgroundColor": "#FFFFFF",
+      //"thumbnailImageUrl": "https://example.com/bot/images/image.jpg",
+      //"imageAspectRatio": "rectangle",
+      //"imageSize": "cover",
+      //"imageBackgroundColor": "#FFFFFF",
       "title": "どこの都道府県ですか？",
       "text": "選択してください。",
       "actions": [
@@ -858,10 +880,10 @@ async function selectKyushuOkinawa(event, req, res)
       "altText": "This is a buttons template",
       "template": {
         "type": "buttons",
-        "thumbnailImageUrl": "https://example.com/bot/images/image.jpg",
-        "imageAspectRatio": "rectangle",
-        "imageSize": "cover",
-        "imageBackgroundColor": "#FFFFFF",
+        //"thumbnailImageUrl": "https://example.com/bot/images/image.jpg",
+        //"imageAspectRatio": "rectangle",
+        //"imageSize": "cover",
+        //"imageBackgroundColor": "#FFFFFF",
         "title": "どこの都道府県ですか？",
         "text": "選択してください。",
         "actions": [
