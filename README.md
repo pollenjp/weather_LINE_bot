@@ -8,8 +8,17 @@
 - LINE
   - https://developers.line.me/ja/docs/messaging-api/message-types/#video-messages
 
+## npm install
 
-# 課題
+```
+$ npm init
+$ npm install --save express
+$ npm install --save pg-promise
+$ npm install --save express
+```
+
+
+## 課題
 - 課題を以下のドライブにアップロードしてください。
   - ファイル名は「<地方・ローマ字>.txt（拡張子はなくても構わない）
   - https://drive.google.com/drive/folders/1iK9y598plXB38webVbOuxhMFB-p3v_vt?usp=sharing
@@ -114,4 +123,31 @@
     ...
 }
 ```
+
+## postgresql
+
+- `linebot`データベース作成
+
+```
+pguser01@raspberrypi:~ $ createdb linebot
+```
+
+- `linebot`データベースに接続
+
+```
+pguser01=> \c linebot 
+データベース "linebot" にユーザ"pguser01"として接続しました。
+```
+
+
+```
+CREATE TABLE userinfo (
+  userid    varchar(50)   PRIMARY KEY,    -- LINEユーザID
+  saveplace integer,                      -- 県を保存するかの選択
+  place     varchar(30),                  -- 県
+  getpush   integer                       -- 毎朝プッシュ通知を受け取るかどうか
+);
+```
+
+
 
